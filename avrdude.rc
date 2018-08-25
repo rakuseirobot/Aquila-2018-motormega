@@ -1,0 +1,5 @@
+# My avrdude.conf
+# Overall avrdude defaults
+#
+#default_serial     = "usb";
+#default_programmer = "stk500v2";

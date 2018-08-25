@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November 1, 2012 by texi2html 1.82
+texi2html was written by:
+            Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+-->
+<head>
+<title>AVRDUDE: Top</title>
+
+<meta name="description" content="AVRDUDE: Top">
+<meta name="keywords" content="AVRDUDE: Top">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.82">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.roman {font-family:serif; font-weight:normal;}
+span.sansserif {font-family:sans-serif; font-weight:normal;}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="Top"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="avrdude_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="avrdude_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="settitle">AVRDUDE</h1>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="avrdude_1.html#Introduction">1. Introduction</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_3.html#Command-Line-Options">2. Command Line Options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_7.html#Terminal-Mode-Operation">3. Terminal Mode Operation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_10.html#Configuration-File">4. Configuration File</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_15.html#Programmer-Specific-Information">5. Programmer Specific Information</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_17.html#Platform-Dependent-Information">A. Platform Dependent Information</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="avrdude_20.html#Troubleshooting">B. Troubleshooting</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr size="1">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="avrdude_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="avrdude_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+<!-- ここから -->
+■ 関連リンク <br>
+<ul>
+<li><a href="http://www-ice.yamagata-cit.ac.jp/forum/viewtopic.php?t=637" title="更新情報"> avrdude-GUI (Update info) </a>
+<li><a href="http://solderintheveins.co.uk/2009/09/avr-baud-rate-calculato/">AVR baud rate calculat</a>
+</ul>
+
+<hr>
+avrdude-GUI関係のメモ（備忘録）<p>
+<img src="./avrdude-GUI.png"><br>
+
+<pre>
+[1] 最初に設定する項目
+  ・「avrdude (exe file)(2)」と「Programmer(-c)(3)」の欄です。利用する環境
+    に合わせ、設定してください。(2) は、省略時は arrdude-GUI.exe と同じ場所
+    の avrdude.exe が指定されます。
+
+    【注意点】
+    複数のポート設定が利用できるライタを選択する場合には、ポートの自動設定
+    は機能しない場合があります。その場合には、「Port(-P)」も適切に選択して
+    ください。
+
+[2] 使い方
+  ・[1] の設定を完了後、GUI を再起動し、ターゲット AVR マイコンと ISP ケー
+    ブルを接続します。[Read] ボタン (1) をクリックすると Fuse 欄に Fuse 設
+    定値が表示されます。
+  ・書込みたい HEX ファイルを GUI フォームの任意の場所にドロップすれば、Flash,
+    EEPROM 欄にセットされ、[Write(B)] ボタンで書き込みできます。
+
+※ 各種のボタンには機能を説明するヒント表示機能があり、希望するボタン上でマ
+   ウスカーソルを２～３秒静止すれば、そのボタンの機能を確認できます。
+
+FT232Rを使ったライタを例にとり、説明します。<br>
+<pre>
+■ FT232RLライタの選択
+以下のように、FT232Rが含まれるライタから選択します。
+</pre>
+<img src="./FT232prog.png" >
+<pre>
+  AE-UM232R      = FT232R BitBang{-P ft0 -B 57600 -i1}
+  breakout       = FT232R Synchronous BitBang
+  diecimila      = FT232R Synchronous BB
+  ft232r0        = FT232R Synchronous BitBang channel 0
+  ft232r1        = FT232R Synchronous BitBang channel 1
+  ft245r         = FT245R/FT232R Synchronous BitBang{-P ft0 -B 38400}
+
+※FT232RとAVRマイコンの結線方法は複数ありますので、採用した結線方法に
+合わせ、適切なものを選択してください（詳細は、同梱の説明書を参照）。
+
+■ 結線方法（基本信号線のみで接続可能）
+  ft245r : sample configration for FT232R/FT245R
+  ft232r0 : FT232R channel 0
+    miso  : D1/RXD
+    sck   : D2/RTS
+    mosi  : D0/TXD
+    reset : D4/DTR
+※ HIDaspxのファームを書き込む場合の結線方法(ft232r0を指定すること)
+
+■ コマンドラインオプション設定例
+(1) -P ft0 -B 38400 -E reset .... 1MHz動作時（省略時設定）
+(2) -P ft0 -E reset ............. 8MHz動作時　（-B 230400 と解釈)
+(3) -P ft0 -B 1000000 -E reset ... 16MHz動作時
+※　-E resetを指定した場合のみ、仮想COMポートの機能を復元します。
+　　ISP完了後に通信する時には、-E resetを指定します。
+
+■ 結線方法（シリアル通信機能を利用せず、Tiny2313に書きこむのが目的の場合）<br>
+</pre>
+<img src="./bitbang-firm.png" ><br>
+
+<pre>
+■ 結線方法（シリアル通信機能との共存可能、通常はこちらを推奨）
+diecimila :
+ ft232r1 : FT232R channel 1
+   AVR   : FT232RLの信号線
+    miso : D3/CTS
+    sck  : D5/DSR
+    mosi : D6/DCD
+    reset: D7/RI
+
+</pre>
+
+
+<hr>
+<!-- ここまで -->
+
+<hr size="1">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#Top" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="avrdude_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[Index]</td>
+<td valign="middle" align="left">[<a href="avrdude_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>Senshu Hiroyuki</em> on <em>November 1, 2012</em> using <a href="http://www.nongnu.org/texi2html/"><em>texi2html 1.82</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>
