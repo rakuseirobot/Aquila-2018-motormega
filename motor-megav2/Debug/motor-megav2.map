@@ -952,12 +952,12 @@ END GROUP
  .debug_frame   0x00000000      0x338 main.o
  .debug_frame   0x00000338       0xac rx_spi.o
 
-.debug_str      0x00000000      0x757
+.debug_str      0x00000000      0x790
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x52b main.o
-                                0x591 (size before relaxing)
- .debug_str     0x00000733       0x24 rx_spi.o
+ .debug_str     0x00000208      0x541 main.o
+                                0x5a7 (size before relaxing)
+ .debug_str     0x00000749       0x47 rx_spi.o
                                 0x232 (size before relaxing)
 
 .debug_loc      0x00000000      0xc74

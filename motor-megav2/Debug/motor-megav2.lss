@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000003e4  00000000  00000000  000038b0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000757  00000000  00000000  00003c94  2**0
+ 10 .debug_str    00000790  00000000  00000000  00003c94  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000c74  00000000  00000000  000043eb  2**0
+ 11 .debug_loc    00000c74  00000000  00000000  00004424  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000118  00000000  00000000  0000505f  2**0
+ 12 .debug_ranges 00000118  00000000  00000000  00005098  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -650,8 +650,8 @@ void motor(void){
  508:	82 e0       	ldi	r24, 0x02	; 2
  50a:	80 93 85 01 	sts	0x0185, r24	; 0x800185 <speed>
 	}
-	best = speed*66;  //要調整 OCR0A = 255 : 140 //??
- 50e:	84 e8       	ldi	r24, 0x84	; 132
+	best = speed*50;  //要調整 OCR0A = 255 : 140 //??
+ 50e:	84 e6       	ldi	r24, 0x64	; 100
  510:	90 e0       	ldi	r25, 0x00	; 0
  512:	a0 e0       	ldi	r26, 0x00	; 0
  514:	b0 e0       	ldi	r27, 0x00	; 0
@@ -673,8 +673,8 @@ void motor(void){
 	if(speed==1){
 		speed = 2;
 	}
-	best = speed*66;  //要調整 OCR0A = 255 : 140 //??
- 52c:	82 e4       	ldi	r24, 0x42	; 66
+	best = speed*50;  //要調整 OCR0A = 255 : 140 //??
+ 52c:	82 e3       	ldi	r24, 0x32	; 50
  52e:	98 9f       	mul	r25, r24
  530:	a0 01       	movw	r20, r0
  532:	11 24       	eor	r1, r1

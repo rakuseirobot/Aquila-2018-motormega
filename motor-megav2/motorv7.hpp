@@ -174,7 +174,7 @@ void motor(void){
 	if(speed==1){
 		speed = 2;
 	}
-	best = speed*66;  //ЧvТ▓Ро OCR0A = 255 : 140 //??
+	best = speed*50;  //ЧvТ▓Ро OCR0A = 255 : 140 //??
 	//uart_putstr("best:");
 	//uart_putdec(best);
 	//uart_putstr("\n\r");
