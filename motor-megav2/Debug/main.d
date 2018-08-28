@@ -17,7 +17,7 @@ main.d main.o: .././main.cpp \
  .././transmission.hpp \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
- .././rx_spi.hpp .././motorv7.hpp
+ .././rx_spi.hpp .././motorv8.hpp
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -57,4 +57,4 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 .././rx_spi.hpp:
 
-.././motorv7.hpp:
+.././motorv8.hpp:

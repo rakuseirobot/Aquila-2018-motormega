@@ -12,7 +12,8 @@
 #include "rx_spi.hpp"
 
 //#include "motorv2.hpp"
-#include "motorv7.hpp"
+//#include "motorv7.hpp"
+#include "motorv8.hpp"
 //#include "motor.hpp"
 
 /******************************************************************************

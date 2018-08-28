@@ -1,13 +1,16 @@
 /*
- * motorv7.h
+ * motorv8.h
  *
- * Created: 2018/03/25 0:42:41
+ * Created: 2018/08/26 17:54:02
  *  Author: shun2
  */ 
+/*
+Write on 8/26/2018
+*/
 
+#ifndef MOTORV8_H_
+#define MOTORV8_H_
 
-#ifndef MOTORV7_H_
-#define MOTORV7_H_
 /*
 This Source for motor made by Pololu moving with PI control.
 Rising Edge!
@@ -75,9 +78,9 @@ double s = 0.015;
 double d = 0.2;*/
 
 
-double p = 0.05;
-double s = 0.02;
-double d = 0.1;
+double p = 0.1;
+double s = 0;
+double d = 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,11 +155,15 @@ unsigned int mflag=0;
 1:30
 5:80
 */
+
+bool fixflag=false;
+
 void motor(void){
+	fixflag=false;
 	ircount = no = kasan = dev[0] = dev[1] = 0;
 	uint8_t num = 0;
 	while(!SPI_ReceiveFlag()){
-		uart_putstr("Waiting...\n\r");
+		//uart_putstr("Waiting...\n\r");
 	}
 	SPI_SetSendData(2);
 	num = SPI_ReceiveData();
@@ -172,9 +179,9 @@ void motor(void){
 		uart_putdec(dis);
 	}
 	if(speed==1){
-		speed = 2;
+		speed = 3;
 	}
-	best = speed*50;  //要調整 OCR0A = 255 : 140 //??
+	best = speed*55;  //要調整 OCR0A = 255 : 140 //??
 	//uart_putstr("best:");
 	//uart_putdec(best);
 	//uart_putstr("\n\r");
@@ -199,6 +206,37 @@ void motor(void){
 
 	noflag = 1;
 	while(((ircount*best)-kasan)+no < distance[dis] && !SPI_ReceiveFlag()){
+		if(fixflag){
+			TCNT1=tinit;// +19999 カウント幅　45536
+			/*
+			clk/0 : 0.22768ms
+			clk/8 : 18.2144ms
+			clk/64 : 145.7152ms
+			clk/256 : 582.8608ms
+			clk/1024 : 2331.4432ms
+			*/
+			nox=no;//for uart
+			kasan += best - no;
+			dev[1] = best - no;
+			ocr+=p*(best-no)+s*kasan-d*(dev[1]-dev[0]);
+			//uart_putdec(ocr);
+			if(ocr>=255){
+				ocr=255;
+			}
+			else if(ocr<=0){
+				ocr=1;
+			}
+			OCR0A=(uint8_t)ocr;
+			no=0;
+			ircount++;
+			noflag = 1;
+			dev[0] = dev[1];
+			count_start();
+			//isr_prog();
+			fixflag=false;
+			uart_putdec(kasan);
+			uart_putstr("\n\r");
+		}
 		/*デバッグ用*/
 		/*uart_putdec(no);
 		uart_putstr("\n\r");
@@ -207,7 +245,7 @@ void motor(void){
 			uart_putdec(nox);
 			uart_putstr("kasan:");
 			uart_putdec(kasan);
-			uart_putstr("OCR0A:");
+			uart_putstr("OCR0A:");	
 			uart_putdec(OCR0A);
 			uart_putstr("count:");
 			uart_putdec(((ircount*best)-kasan)+no);
@@ -257,32 +295,7 @@ void count_stop(void){
 }
 
 ISR(TIMER1_OVF_vect){
-	TCNT1=tinit;// +19999 カウント幅　45536
-	/*
-	clk/0 : 0.22768ms
-	clk/8 : 18.2144ms
-	clk/64 : 145.7152ms
-	clk/256 : 582.8608ms
-	clk/1024 : 2331.4432ms
-	*/
-	nox=no;//for uart
-	kasan += best - no;
-	dev[1] = best - no;
-	ocr+=p*(best-no)+s*kasan-d*(dev[1]-dev[0]);
-	//uart_putdec(ocr);
-	if(ocr>=255){
-		ocr=255;
-	}
-	else if(ocr<=0){
-		ocr=1;
-	}
-	OCR0A=(uint8_t)ocr;
-	no=0;
-	ircount++;
-	noflag = 1;
-	dev[0] = dev[1];
-	count_start();
-	//isr_prog();
+	fixflag=true;
 }
 
 ISR(INT0_vect){
@@ -295,4 +308,6 @@ ISR(INT0_vect){
 
 
 
-#endif /* MOTORV7_H_ */
+
+
+#endif /* MOTORV8_H_ */
