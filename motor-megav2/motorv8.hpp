@@ -78,7 +78,7 @@ double s = 0.015;
 double d = 0.2;*/
 
 
-double p = 0.1;
+double p = 5;
 double s = 0;
 double d = 0;
 
@@ -111,7 +111,9 @@ int32_t ircount=0;
 */
 
 
-uint16_t distance[8] = {0,2318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+//uint16_t distance[8] = {0,2318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+uint16_t distance[8] = {0,5318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+
 void init_motor(void){
 	DDRC |= CS|INB|INA|EN;
 	DDRD |= (0<<PIND2)|(1<<PORTD6);
@@ -162,6 +164,9 @@ void motor(void){
 	fixflag=false;
 	ircount = no = kasan = dev[0] = dev[1] = 0;
 	uint8_t num = 0;
+	uart_putstr("\n\rs:");
+	uart_putdec(s*100);
+	uart_putstr("\n\r");
 	while(!SPI_ReceiveFlag()){
 		//uart_putstr("Waiting...\n\r");
 	}
@@ -181,10 +186,10 @@ void motor(void){
 	if(speed==1){
 		speed = 3;
 	}
-	best = speed*55;  //要調整 OCR0A = 255 : 140 //??
-	//uart_putstr("best:");
-	//uart_putdec(best);
-	//uart_putstr("\n\r");
+	best = speed*8;  //要調整 OCR0A = 255 : 140 //??
+	uart_putstr("best:");
+	uart_putdec(best);
+	uart_putstr("\n\r");
 	//timbest = timcnt*5/speed;
 	
 	if(fb==3 || speed==0){
@@ -200,12 +205,13 @@ void motor(void){
 		reverce();
 	}
 	
-	OCR0A = ocr = speed * 34;
+	OCR0A = ocr = speed * 30;
 	count_start();
 	sei();
 
 	noflag = 1;
 	while(((ircount*best)-kasan)+no < distance[dis] && !SPI_ReceiveFlag()){
+		
 		if(fixflag){
 			TCNT1=tinit;// +19999 カウント幅　45536
 			/*
@@ -234,7 +240,8 @@ void motor(void){
 			count_start();
 			//isr_prog();
 			fixflag=false;
-			uart_putdec(kasan);
+			uart_putdec(best-nox);
+			uart_putstr(",");
 			uart_putstr("\n\r");
 		}
 		/*デバッグ用*/
@@ -272,7 +279,7 @@ void count_start(void){
 	TCNT1 = tinit;
 	TIFR1=0x01; //Enable to Overflow Flag.
 	TIMSK1=0x01; //Enable to Overflow Interrupt.
-	TCCR1B=0x03; //start Last 3bit : 分周
+	TCCR1B=0x02; //start Last 3bit : 分周
 	/* 65535
 	000:Stop
 	001:clk/0 = 0.000005ms/count : 0.327675ms
