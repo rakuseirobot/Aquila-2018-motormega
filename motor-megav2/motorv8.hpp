@@ -42,8 +42,10 @@ TCNT1の上限値=65535
 #define INB (1<<PORTC3)
 #define INA (1<<PORTC4)
 #define EN (1<<PORTC5)
+#define SIG (1<<PORTD3)
 
 #include "rx_spi.hpp"
+#include "avr/sfr_defs.h"
 
 #define rotation 6400
 #define tinit 0
@@ -111,12 +113,12 @@ int32_t ircount=0;
 */
 
 
-//uint16_t distance[8] = {0,2318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
-uint16_t distance[8] = {0,5318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+uint16_t distance[8] = {0,2388,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+//uint16_t distance[8] = {0,5318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
 
 void init_motor(void){
 	DDRC |= CS|INB|INA|EN;
-	DDRD |= (0<<PIND2)|(1<<PORTD6);
+	DDRD |= (0<<PIND2)|(0<<PIND3)|(1<<PORTD6);
 	//PORTD |= (1<<PORTD2);		
 	EICRA = 0b00000010;
 	/*
@@ -211,7 +213,25 @@ void motor(void){
 
 	noflag = 1;
 	while(((ircount*best)-kasan)+no < distance[dis] && !SPI_ReceiveFlag()){
-		
+		if(!bit_is_clear(PIND,PIND3)){
+			PORTC = INB|INA|EN;
+			cli();
+			TIMSK1=0x00;
+			TIFR1=0x00;
+			TCCR1B=0x00; //ストップ
+			uart_putstr("stop\n\r");
+			while(!bit_is_clear(PIND,PIND3));
+			TIFR1=0x01; //Enable to Overflow Flag.
+			TIMSK1=0x01; //Enable to Overflow Interrupt.
+			TCCR1B=0x02; //start Last 3bit : 分周
+			sei();
+			if(fb==1){
+				advance();
+			}
+			else if(fb==2){
+				reverce();
+			}
+		}
 		if(fixflag){
 			TCNT1=tinit;// +19999 カウント幅　45536
 			/*
