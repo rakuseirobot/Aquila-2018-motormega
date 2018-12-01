@@ -113,7 +113,7 @@ int32_t ircount=0;
 */
 
 
-uint16_t distance[8] = {0,2388,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
+uint16_t distance[8] = {0,2388,4670,1600,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
 //uint16_t distance[8] = {0,5318,4670,1500,940,2300,0};   //Max65535		//empty,1block,2blocks,Turn,Half,Compass
 
 void init_motor(void){
